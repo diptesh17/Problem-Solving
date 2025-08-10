@@ -1,18 +1,21 @@
 class Solution {
 public:
-    void subsequence(vector<int>& nums, int i, vector<int>& temp, vector<vector<int>>& ans) {
-        if (i == nums.size()) { // base case
+   
+    void subsequence(vector<int>& nums, int i , vector<int>& temp , vector<vector<int>> &ans)
+    {
+        if(i>=nums.size())
+        {
             ans.push_back(temp);
             return;
         }
 
-        // Take current element
+        // include
         temp.push_back(nums[i]);
-        subsequence(nums, i + 1, temp, ans);
+        subsequence(nums,i+1,temp,ans);
 
-        // Not take current element
+        // exclude
         temp.pop_back();
-        subsequence(nums, i + 1, temp, ans);
+        subsequence(nums,i+1,temp,ans);
     }
 
     vector<vector<int>> subsets(vector<int>& nums) {
