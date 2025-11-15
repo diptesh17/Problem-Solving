@@ -7,7 +7,7 @@ public:
         while (start < n && s[start] == ' ') start++;
         while (end >= 0 && s[end] == ' ') end--;
 
-        if (start > end) return "";
+        //if (start > end) return "";
 
         string trimmed = "";
         for (int i = start; i <= end; ++i) {
