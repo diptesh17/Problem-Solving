@@ -1,46 +1,40 @@
 class Solution {
 public:
-    string trimCustom(const string& s) {
+    string reverseWords(string s) {
         int n = s.size();
-        int start = 0, end = n - 1;
-
+        
+        // Remove leading spaces
+        int start = 0;
         while (start < n && s[start] == ' ') start++;
+        
+        // Remove trailing spaces
+        int end = n - 1;
         while (end >= 0 && s[end] == ' ') end--;
 
-        //if (start > end) return "";
-
-        string trimmed = "";
-        for (int i = start; i <= end; ++i) {
-            trimmed += s[i];
-        }
-
-        return trimmed;
-    }
-
-    string reverseWords(string s) {
-        s = trimCustom(s);
-        reverse(s.begin(), s.end());
+        // Reverse the trimmed portion
+        reverse(s.begin() + start, s.begin() + end + 1);
 
         string ans = "";
-        string temp = "";
+        string word = "";
 
-        for (auto ch : s) {
-            if (ch != ' ') {
-                temp += ch;
+        for (int i = start; i <= end; i++) {
+            if (s[i] != ' ') {
+                word += s[i];
             } else {
-                if (!temp.empty()) {
-                    reverse(temp.begin(), temp.end());
-                    ans += temp + " ";
-                    temp = "";
+                if (!word.empty()) {
+                    reverse(word.begin(), word.end());
+                    if (!ans.empty()) ans += " ";
+                    ans += word;
+                    word.clear();
                 }
             }
         }
 
-        if (!temp.empty()) {
-            reverse(temp.begin(), temp.end());
-            ans += temp;
-        } else if (!ans.empty() && ans.back() == ' ') {
-            ans.pop_back();
+        // Last word
+        if (!word.empty()) {
+            reverse(word.begin(), word.end());
+            if (!ans.empty()) ans += " ";
+            ans += word;
         }
 
         return ans;
