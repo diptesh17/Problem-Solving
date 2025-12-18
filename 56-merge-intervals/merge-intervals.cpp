@@ -6,19 +6,28 @@ public:
 
         vector<vector<int>> result;
 
-        int size = 0;
-        result.push_back(intervals[0]);
+        int start1 = intervals[0][0];
+        int end1 = intervals[0][1];
 
         for(int i=1 ; i<intervals.size();i++)
         {
-            if(intervals[i][0] <= result[size][1])
-            {
-                result[size][1] = max( result[size][1] , intervals[i][1]);
-            } else {
-                result.push_back(intervals[i]);
-                size++;
-            }
+           int start2 = intervals[i][0];
+           int end2 = intervals[i][1];
+
+           if(end1 >= start2) // merge
+           {
+             start1 = start1;
+             end1 = max(end1,end2);
+             continue;
+           } else { // non overlap
+             result.push_back({start1,end1});
+             start1 = start2;
+             end1 = end2;
+           }
         }
+
+        // last entry
+        result.push_back({start1,end1});
 
         return result;
         
